@@ -1,4 +1,4 @@
-import 'package:carnicaja_app/views/menu_principal.dart';
+import 'package:posemprendeapp/views/menu_principal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';

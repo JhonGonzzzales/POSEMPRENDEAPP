@@ -8,7 +8,7 @@
 
 | POS Terminal (Caja) | Onboarding / Flujo Inicial |
 | :---: | :---: |
-| ![POS Terminal](docs/screenshots/caja_view.png) | ![Onboarding](docs/screenshots/onboarding.png) |
+| ![POS Terminal](docs/screenshots/cap2.png) | ![Onboarding](docs/screenshots/cap1.png) |
 
 ---
 

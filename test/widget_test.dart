@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
-import 'package:carnicaja_app/main.dart';
-import 'package:carnicaja_app/providers/venta_provider.dart';
+import 'package:posemprendeapp/main.dart';
+import 'package:posemprendeapp/providers/venta_provider.dart';
 
 void main() {
   testWidgets('Prueba básica de carga de CarniCajaApp', (WidgetTester tester) async {
