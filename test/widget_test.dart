@@ -5,7 +5,7 @@ import 'package:posemprendeapp/main.dart';
 import 'package:posemprendeapp/providers/venta_provider.dart';
 
 void main() {
-  testWidgets('Prueba básica de carga de CarniCajaApp', (WidgetTester tester) async {
+  testWidgets('Prueba básica de carga de PosEmprendeApp', (WidgetTester tester) async {
     // Construye la aplicación envuelta en su proveedor de datos simulado
     await tester.pumpWidget(
       ChangeNotifierProvider(
