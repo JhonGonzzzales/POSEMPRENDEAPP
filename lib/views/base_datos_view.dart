@@ -6,7 +6,7 @@ import '../models/venta_model.dart';
 class BaseDatosView extends StatelessWidget {
   const BaseDatosView({super.key});
 
-  // Paleta de colores oficial Material Design 3
+  // Paleta de colores oficial de Material Design 3
   static const Color primaryTeal = Color(0xFF027F81);
   static const Color mintContainer = Color(0xFFE0F9F5);
   static const Color surfaceBackground = Color(0xFFF8FAF9);
@@ -286,7 +286,7 @@ class BaseDatosView extends StatelessWidget {
       case 'Tarjeta':
         return Colors.blue;
       default:
-        return primaryTeal; // Efectivo
+        return primaryTeal;
     }
   }
 

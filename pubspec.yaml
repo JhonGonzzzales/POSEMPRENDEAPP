@@ -21,6 +21,7 @@ dependencies:
   printing: ^5.14.3
   pdf: ^3.12.0
   shared_preferences: ^2.5.5
+  sqflite_common_ffi_web: ^1.1.1
 
 dev_dependencies:
   flutter_test:
@@ -34,6 +35,6 @@ flutter:
     - assets/logo.png
 
 flutter_launcher_icons:
-  android: true
+  android: "launcher_icon"
   ios: true
   image_path: "assets/logo.png"

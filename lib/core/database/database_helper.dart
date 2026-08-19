@@ -1,8 +1,9 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import '../../models/venta_model.dart';
 import '../../models/producto_model.dart';
+import '../../models/venta_model.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper instance = DatabaseHelper._init();
@@ -17,8 +18,15 @@ class DatabaseHelper {
   }
 
   Future<Database> _initDB(String filePath) async {
-    final dbPath = await getDatabasesPath();
-    final path = join(dbPath, filePath);
+    String path;
+
+    if (kIsWeb) {
+      // En Web no se usa getDatabasesPath() ni joins de rutas de SO
+      path = filePath;
+    } else {
+      final dbPath = await getDatabasesPath();
+      path = join(dbPath, filePath);
+    }
 
     return await openDatabase(
       path,
@@ -68,7 +76,7 @@ class DatabaseHelper {
     ''');
   }
 
-  // ==================== OPERACIONES PRODUCTOS ====================
+  // OPERACIONES PRODUCTOS
 
   Future<int> guardarProducto(ProductoModel producto) async {
     final db = await instance.database;
@@ -81,12 +89,11 @@ class DatabaseHelper {
     return result.map((json) => ProductoModel.fromMap(json)).toList();
   }
 
-  // ==================== OPERACIONES VENTAS ====================
+  // OPERACIONES VENTAS
 
   Future<int> guardarVenta(VentaModel venta) async {
     final db = await instance.database;
-    
-    // Transacción para guardar venta y sus detalles de forma atómica
+
     return await db.transaction((txn) async {
       int ventaId = await txn.insert('ventas', venta.toMap());
 
@@ -100,7 +107,6 @@ class DatabaseHelper {
           'subtotal': detalle.subtotal,
         });
 
-        // Opcional: Descontar del stock si el producto existe
         if (detalle.productoId != null) {
           await txn.rawUpdate('''
             UPDATE productos 
@@ -138,7 +144,7 @@ class DatabaseHelper {
     return await db.delete('ventas', where: 'id = ?', whereArgs: [id]);
   }
 
-  // ==================== DASHBOARD / REPORTES ====================
+  // DASHBOARD / REPORTES
 
   Future<double> obtenerTotalVentasPorFiltro(String filtro) async {
     final db = await instance.database;

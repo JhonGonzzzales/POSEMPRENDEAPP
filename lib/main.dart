@@ -1,14 +1,23 @@
-import 'package:posemprendeapp/views/menu_principal.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:posemprendeapp/views/menu_principal.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
+
 import 'providers/venta_provider.dart';
 import 'views/onboarding_view.dart';
 
 void main() async {
-  // Asegura la inicialización de los bindings de Flutter antes de SharedPreferences
+  // Asegura la inicialización de los bindings de Flutter
   WidgetsFlutterBinding.ensureInitialized();
-  
+
+  // Inicializa el driver de SQLite si la app corre en un navegador Web
+  if (kIsWeb) {
+    databaseFactory = databaseFactoryFfiWeb;
+  }
+
   bool mostrarOnboarding = true;
   try {
     final prefs = await SharedPreferences.getInstance();
@@ -21,23 +30,22 @@ void main() async {
 
   runApp(
     ChangeNotifierProvider(
-  create: (context) {
-    final provider = VentaProvider();
-    provider.cargarDatos(); // Se ejecuta de forma asíncrona limpia
-    return provider;
-  },
-  child: PosEmprendeApp(mostrarOnboarding: mostrarOnboarding),
-)
+      create: (context) {
+        final provider = VentaProvider();
+        provider.cargarDatos();
+        return provider;
+      },
+      child: PosEmprendeApp(mostrarOnboarding: mostrarOnboarding),
+    ),
   );
 }
 
 class PosEmprendeApp extends StatelessWidget {
-  // valor por defecto false en el constructor para evitar fallos si se llama sin parámetro
   final bool mostrarOnboarding;
 
   const PosEmprendeApp({
     super.key,
-    this.mostrarOnboarding = false, 
+    this.mostrarOnboarding = false,
   });
 
   static const Color primaryTeal = Color(0xFF027F81);
